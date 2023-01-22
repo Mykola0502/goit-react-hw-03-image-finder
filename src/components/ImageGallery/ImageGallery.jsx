@@ -1,5 +1,5 @@
 import { ImageGalleryItem } from 'components/ImageGalleryItem';
-import { Gallery } from './ImageGallery.styled';
+import { Gallery, Item } from './ImageGallery.styled';
 
 export const ImageGallery = ({ images }) => {
   return (
@@ -16,7 +16,11 @@ export const ImageGallery = ({ images }) => {
         );
       })} */}
       {images.map(({ id, ...otherProps }) => {
-        return <ImageGalleryItem key={id} {...otherProps}></ImageGalleryItem>;
+        return (
+          <Item key={id}>
+            <ImageGalleryItem {...otherProps}></ImageGalleryItem>
+          </Item>
+        );
       })}
     </Gallery>
   );

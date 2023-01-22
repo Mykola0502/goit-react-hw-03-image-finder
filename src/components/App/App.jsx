@@ -18,6 +18,7 @@ export class App extends Component {
     images: [],
     page: 1,
     totalHits: 0,
+    picturesHits: 0,
     error: null,
   };
 
@@ -45,9 +46,10 @@ export class App extends Component {
 
       // this.onSearch(nextQuery, page);
       // this.setState({ images: [] });
-      setTimeout(() => {
-        this.onSearch(nextQuery, nextPage);
-      }, 1000);
+      // setTimeout(() => {
+      //   this.onSearch(nextQuery, nextPage);
+      // }, 1000);
+      this.onSearch(nextQuery, nextPage);
     }
     // this.setState(prevState => ({ images: [...prevState.images] }));
   }
@@ -55,22 +57,41 @@ export class App extends Component {
   handleFormSubmit = query => {
     const { searchQuery } = this.state;
     if (searchQuery !== query.trim()) {
-      this.setState({ searchQuery: query.trim(), images: [], page: 1 });
+      this.setState({
+        searchQuery: query.trim(),
+        images: [],
+        page: 1,
+        totalHits: 0,
+        picturesHits: 0,
+      });
     }
   };
 
   async onSearch(query, page) {
     // this.setState({ loading: true });
-    // const { images } = this.state;
+    const { picturesHits } = this.state;
 
     try {
       // this.setState({ loading: true, error: null });
       const pictures = await fetchPictures(query, page);
-      console.log(pictures.hits);
+      // console.log(pictures.hits);
       this.setState(prevState => ({
         images: [...prevState.images, ...pictures.hits],
         totalHits: pictures.totalHits,
+        picturesHits: prevState.picturesHits + pictures.hits.length,
       }));
+      // console.log(this.state.picturesHits);
+
+      toast.success(
+        `Found ${picturesHits + pictures.hits.length} images out of ${
+          pictures.totalHits
+        }`,
+        {
+          position: 'top-right',
+          autoClose: 2000,
+          theme: 'light',
+        }
+      );
     } catch (error) {
       this.setState({ error: 'No images found, try again😢' });
     } finally {
@@ -86,7 +107,7 @@ export class App extends Component {
 
   render() {
     const { searchQuery, images, totalHits, loading, error } = this.state;
-    console.log(totalHits);
+    // console.log(totalHits);
     return (
       <Container>
         <Searchbar onSubmit={this.handleFormSubmit}></Searchbar>
