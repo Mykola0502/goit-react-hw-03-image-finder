@@ -1,5 +1,14 @@
 import { Component } from 'react';
 import { toast } from 'react-toastify';
+import { BiSearchAlt } from 'react-icons/bi';
+
+import {
+  ButtonLabel,
+  SearchbarHeader,
+  SearchForm,
+  SearchFormBtn,
+  SearchInput,
+} from './Searchbar.styled';
 
 export class Searchbar extends Component {
   state = {
@@ -27,13 +36,14 @@ export class Searchbar extends Component {
     const { searchInput } = this.state;
 
     return (
-      <header className="searchbar">
-        <form className="form" onSubmit={this.handleSubmit}>
-          <button type="submit" className="button">
-            <span className="button-label">Search</span>
-          </button>
+      <SearchbarHeader>
+        <SearchForm onSubmit={this.handleSubmit}>
+          <SearchFormBtn type="submit">
+            <BiSearchAlt />
+            <ButtonLabel>Search</ButtonLabel>
+          </SearchFormBtn>
 
-          <input
+          <SearchInput
             className="input"
             type="text"
             // name="searchInput"
@@ -43,8 +53,8 @@ export class Searchbar extends Component {
             autoFocus
             placeholder="Search images and photos"
           />
-        </form>
-      </header>
+        </SearchForm>
+      </SearchbarHeader>
     );
   }
 }
