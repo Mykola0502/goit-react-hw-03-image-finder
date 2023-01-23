@@ -1,10 +1,5 @@
 import styled from 'styled-components';
 
-// export const FcSearch = styled.svg`
-//   width: 40px;
-//   height: 40px;
-// `;
-
 export const SearchbarHeader = styled.header`
   top: 0;
   left: 0;

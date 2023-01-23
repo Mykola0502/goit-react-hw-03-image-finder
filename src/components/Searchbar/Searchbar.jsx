@@ -1,3 +1,4 @@
+import { PropTypes } from 'prop-types';
 import { Component } from 'react';
 import { toast } from 'react-toastify';
 import { BiSearchAlt } from 'react-icons/bi';
@@ -11,6 +12,11 @@ import {
 } from './Searchbar.styled';
 
 export class Searchbar extends Component {
+  static propTypes = {
+    onSubmit: PropTypes.func.isRequired,
+    onChange: PropTypes.func,
+  };
+
   state = {
     searchInput: '',
   };
@@ -22,14 +28,12 @@ export class Searchbar extends Component {
   handleSubmit = evt => {
     evt.preventDefault();
 
-    if (this.state.searchInput === '') {
-      return toast.error('Please enter the text in the search field! 🔍', {
-        // position: 'top-center',
-        // autoClose: 5000,
-      });
+    if (this.state.searchInput.trim()) {
+      this.props.onSubmit(this.state.searchInput);
+      this.setState({ searchInput: '' });
+      return;
     }
-    this.props.onSubmit(this.state.searchInput);
-    this.setState({ searchInput: '' });
+    toast.error('Please enter the text in the search field! 🔍', {});
   };
 
   render() {
@@ -46,7 +50,7 @@ export class Searchbar extends Component {
           <SearchInput
             className="input"
             type="text"
-            // name="searchInput"
+            name="searchInput"
             value={searchInput}
             onChange={this.handleInputChange}
             autoComplete="off"

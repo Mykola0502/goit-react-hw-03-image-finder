@@ -6,3 +6,9 @@ export const Container = styled.div`
   grid-gap: 16px;
   padding-bottom: 24px;
 `;
+
+export const InfoText = styled.h2`
+  padding: 30px;
+  text-align: center;
+  font-size: 36px;
+`;

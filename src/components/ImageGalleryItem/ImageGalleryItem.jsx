@@ -1,3 +1,4 @@
+import { PropTypes } from 'prop-types';
 import { Component } from 'react';
 
 import { Modal } from 'components/Modal';
@@ -5,6 +6,14 @@ import { Modal } from 'components/Modal';
 import { ItemImg } from './ImageGalleryItem.styled';
 
 export class ImageGalleryItem extends Component {
+  static propTypes = {
+    image: PropTypes.exact({
+      webformatURL: PropTypes.string.isRequired,
+      largeImageURL: PropTypes.string.isRequired,
+      tags: PropTypes.string.isRequired,
+    }),
+  };
+
   state = {
     showModal: false,
   };
@@ -26,25 +35,7 @@ export class ImageGalleryItem extends Component {
             <img src={largeImageURL} alt={tags} />
           </Modal>
         )}
-        {/* <p>{tags}</p> */}
-        {/* <p>id: {id}</p>
-      <p>webformatURL: {webformatURL}</p>
-      <p>largeImageURL: {largeImageURL}</p> */}
       </>
     );
   }
 }
-
-// export const ImageGalleryItem = ({ webformatURL, largeImageURL, tags }) => {
-//   return (
-//     <GalleryItem>
-//       <img src={webformatURL} alt={tags} />
-//       {/* <p>{tags}</p> */}
-//       {/* <p>id: {id}</p>
-//       <p>webformatURL: {webformatURL}</p>
-//       <p>largeImageURL: {largeImageURL}</p> */}
-
-//       <Modal largeImageURL={largeImageURL} tags={tags} />
-//     </GalleryItem>
-//   );
-// };
