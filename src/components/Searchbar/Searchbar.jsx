@@ -14,7 +14,6 @@ import {
 export class Searchbar extends Component {
   static propTypes = {
     onSubmit: PropTypes.func.isRequired,
-    onChange: PropTypes.func,
   };
 
   state = {
