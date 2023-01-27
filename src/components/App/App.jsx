@@ -29,7 +29,11 @@ export class App extends Component {
     const nextPage = this.state.page;
 
     if (prevQuery !== nextQuery || prevPage !== nextPage) {
-      this.setState({ loading: true });
+      // this.setState({ loading: true });
+
+      // setTimeout(() => {
+      //   this.onSearch(nextQuery, nextPage);
+      // }, 3000);
       this.onSearch(nextQuery, nextPage);
     }
   }
@@ -51,6 +55,7 @@ export class App extends Component {
     const { picturesHits } = this.state;
 
     try {
+      this.setState({ loading: true });
       const pictures = await fetchPictures(query, page);
       this.setState(prevState => ({
         images: [...prevState.images, ...pictures.hits],
